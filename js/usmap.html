@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive US Map</title>
+    <style>
+        path {
+            fill: #d3d3d3;
+            stroke: #fff;
+            stroke-width: 1;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Include D3.js library -->
+<script src="https://d3js.org/d3.v5.min.js"></script>
+
+<script>
+    // Define the width and height of the map
+    const width = 960;
+    const height = 600;
+
+    // Create an SVG element
+    const svg = d3.select('body')
+        .append('svg')
+        .attr('width', width)
+        .attr('height', height);
+
+    // GeoJSON data for US states (simplified for brevity)
+    const usStates = {
+        "type": "FeatureCollection",
+        "features": [
+            // Include GeoJSON data for each state here (simplified)
+        ]
+    };
+
+    // Create a projection for the map
+    const projection = d3.geoAlbersUsa()
+        .fitSize([width, height], usStates);
+
+    // Create a path generator
+    const path = d3.geoPath().projection(projection);
+
+    // Draw the map
+    svg.selectAll('path')
+        .data(usStates.features)
+        .enter().append('path')
+        .attr('d', path)
+        .attr('class', 'state')
+        .on('click', function (event, d) {
+            // Handle state click event
+            alert('You selected ' + d.properties.name);
+            // You can customize this function to perform any action when a state is selected
+        });
+</script>
+
+</body>
+</html>

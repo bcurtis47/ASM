@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Selection</title>
+</head>
+<body>
+
+<form id="sportsForm" onsubmit="return false;">
+    <label for="gender">Select Gender:</label>
+    <select id="gender" onchange="updateSports()">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+    </select>
+
+    <label for="sports">Select Sport:</label>
+    <select id="sports" name="selectedSport"></select>
+
+    <input type="submit" value="Submit" onclick="submitForm()">
+</form>
+
+<script>
+    function updateSports() {
+        var genderSelect = document.getElementById('gender');
+        var sportsSelect = document.getElementById('sports');
+
+        // Clear existing options
+        sportsSelect.innerHTML = '';
+
+        // Define sports based on the selected gender
+        var sportsOptions;
+        if (genderSelect.value === 'male') {
+            sportsOptions = [
+                'Baseball', 'Basketball', 'Cross Country', 'Fencing', 'Football',
+                'Golf', 'Gymnastics', 'Ice Hockey', 'Lacrosse', 'Rifle', 'Skiing',
+                'Soccer', 'Swimming and Diving', 'Tennis', 'Track (Indoor)',
+                'Track (Outdoor)', 'Volleyball', 'Water Polo', 'Wrestling'
+            ];
+        } else if (genderSelect.value === 'female') {
+            sportsOptions = [
+                'Basketball', 'Beach Volleyball', 'Bowling', 'Cross Country',
+                'Fencing', 'Field Hockey', 'Golf', 'Gymnastics', 'Ice Hockey',
+                'Lacrosse', 'Rifle', 'Rowing', 'Skiing', 'Soccer', 'Softball',
+                'Swimming and Diving', 'Tennis', 'Track (Indoor)', 'Track (Outdoor)',
+                'Volleyball', 'Water Polo'
+            ];
+        }
+
+        // Populate the second dropdown with sports options
+        sportsOptions.forEach(function (sport) {
+            var option = document.createElement('option');
+            option.value = sport.toLowerCase().replace(/\s+/g, '-');
+            option.text = sport;
+            sportsSelect.appendChild(option);
+        });
+    }
+
+    function submitForm() {
+        var selectedGender = document.getElementById('gender').value;
+        var selectedSport = document.getElementById('sports').value;
+
+        // Redirect to the "usStates" page with the selected sport as a query parameter
+        window.location.href = 'usStates.html?sport=' + selectedSport;
+    }
+
+    // Initialize the sports dropdown based on the default gender selection
+    updateSports();
+</script>
+
+</body>
+</html>
